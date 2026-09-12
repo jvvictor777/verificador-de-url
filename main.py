@@ -83,6 +83,11 @@ while True:
 "suspended",
 "suspension",
 "security",
+"purchase",
+"payment",
+"deadline",
+"transfer"
+
 ]
     encontradas = []
 
