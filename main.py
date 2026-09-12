@@ -2,26 +2,26 @@ url = input("digite a URL: ")
 risco = 0
 
 if url.startswith("https://"):
-    print('HTTPS: V')
+    print('HTTPS: Sim, Protocolo seguro')
 else:
-    print('HTTPS: X')
+    print('HTTPS: Não, Alerta')
     risco += 2
 
 if len(url)> 100:
-    print("URL muito longa: X")
+    print("URL muito longa: Acima do recomendado, alerta")
     risco += 1
 else:
-    print("URL muito longa: V")
+    print("URL muito longa: não, ok")
 
 
 if "192.168" in url:
-    print ("Possui ip: X")
+    print ("Possui ip: IP no lugar do domínio, alerta")
     risco += 2
 else:
-    print ("Possui ip: V")
+    print ("Possui ip: não, ok")
 
 
-palavras_suspeitas = [
+palavras_suspeitas = [ 
 "login",
 "verify",
 "verification",
@@ -38,10 +38,10 @@ for palavra in palavras_suspeitas:
 
 
 if encontradas:
-        print("Palavras suspeitas: encontradas")
+        print("Palavras suspeitas: encontradas:" + ", ".join(encontradas))
         risco += len(encontradas)
 else:
-        print("palavras suspeitas: V")
+        print("palavras suspeitas: não")
 
 print('pontuação', risco)
 
