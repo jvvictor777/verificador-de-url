@@ -30,7 +30,7 @@ while True:
 
     print("quant. pontos:", quantidade)
 
-    
+
     if quantidade > 3:
         print("muitos subdomínios")
         risco += 1
