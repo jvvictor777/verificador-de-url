@@ -3,6 +3,7 @@ sistema em python que analisa urls e identifca caracteristicas que podem indicar
 o verificador analisa a url informada pelo usuário e verifica alguns indicadores de risco, como:
 uso de https
 tamanho da url
+tamamho do domínio e o próprio domínio
 presença de endereço ip
 palavras potencialmente suspeitas
 pontução de risco

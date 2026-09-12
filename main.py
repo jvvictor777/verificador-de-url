@@ -2,7 +2,7 @@ import csv
 from datetime import datetime
 from urllib.parse import urlparse 
 
-def salvar_historico(url, risco,):
+def salvar_historico(url, risco):
     with open ("historico.csv", "a", newline="", encoding = "utf-8") as file:
         escritor = csv.writer(file)
 
@@ -10,24 +10,27 @@ def salvar_historico(url, risco,):
                         url,
                         risco,])
 
-url = input("digite a URL: ")
-risco = 0
+while True:
+    url = input("digite a URL: ")
+    risco = 0
 
-dados = urlparse(url)
-dominio = dados.hostname
+    dados = urlparse(url)
+    dominio = dados.hostname
 
-print("Dominío:", dominio)
+    print("Dominío:", dominio)
 
-if dominio and len(dominio) > 15:
-    print("domínio muito longo")
-    risco += 1
-else:
-    print("tamanho do domínio: normal")
+    if dominio and len(dominio) > 15:
+        print("domínio muito longo")
+        risco += 1
+    else:
+        print("tamanho do domínio: normal")
 
-if dominio:
-    quantidade = dominio.count(".")
+    if dominio:
+        quantidade = dominio.count(".")
 
     print("quant. pontos:", quantidade)
+
+    
     if quantidade > 3:
         print("muitos subdomínios")
         risco += 1
@@ -36,34 +39,34 @@ if dominio:
 
 
 
-if url.startswith("https://"):
-    print('HTTPS: Sim, Protocolo seguro')
-else:
-    print('HTTPS: Não, Alerta')
+    if url.startswith("https://"):
+        print('HTTPS: Sim, Protocolo seguro')
+    else:
+        print('HTTPS: Não, Alerta')
     risco += 2
 
-if len(url)> 75:
-    print("URL muito longa: Acima do recomendado, alerta")
-    risco += 1
-else:
-    print("URL muito longa: não, ok")
+    if len(url)> 75:
+        print("URL muito longa: Acima do recomendado, alerta")
+        risco += 1
+    else:
+        print("URL muito longa: não, ok")
 
 
-if "192.168" in url:
-    print ("Possui ip: IP no lugar do domínio, alerta")
-    risco += 2
-else:
-    print ("Possui ip: não, ok")
+    if "192.168" in url:
+        print ("Possui ip: IP no lugar do domínio, alerta")
+        risco += 2
+    else:
+        print ("Possui ip: não, ok")
 
 
-palavras_suspeitas = [ 
+    palavras_suspeitas = [ 
 "login",
 "verify",
 "verification",
 "password",
 "account",
 "confirm",
-"secure",""
+"secure",
 "signin",
 "sign-in",
 "authenticate",
@@ -81,27 +84,34 @@ palavras_suspeitas = [
 "suspension",
 "security",
 ]
-encontradas = []
+    encontradas = []
 
-for palavra in palavras_suspeitas:
-    if palavra in url.lower():
-        encontradas.append(palavra)
+    for palavra in palavras_suspeitas:
+        if palavra in url.lower():
+            encontradas.append(palavra)
 
 
-if encontradas:
+    if encontradas:
         print("Palavras suspeitas: encontradas:" + ", ".join(encontradas))
         risco += len(encontradas)
-else:
+    else:
         print("palavras suspeitas: não")
 
-print('pontuação', risco)
+    print('pontuação', risco)
 
-if risco <= 1:
-    print("Risco: Baixo")
-elif risco <= 3:
-    print("Risco: Médio")
-else:
-    print("Risco: Alto")
+    if risco <= 1:
+        print("Risco: Baixo")
+    elif risco <= 3:
+        print("Risco: Médio")
+    else:
+        print("Risco: Alto")
 
-salvar_historico(url, risco,)
-print("análise salva no histórico")
+    salvar_historico(url, risco,)
+    print("análise salva no histórico")
+
+    continuar = input("Deseja analisar outra URL? (sim/não):").lower()
+
+    if continuar != "sim":
+        print("encerrando programa...")
+    break 
+
